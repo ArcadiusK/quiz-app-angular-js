@@ -9,6 +9,10 @@
  */
 angular.module('quizApp')
   .controller('QuizCtrl', function ($scope) {
+
+  //   $http.get('/localhost:3000/').success(function(data, status, headers, config)
+  //     console.log('get response')
+  // })
     
     setInterval(function() {$scope.arc_seconds--;   
        $scope.$apply();   },800);
@@ -72,6 +76,12 @@ $scope.isLongerThanTen = function($value) {
       if ($scope.nextQuestion.options.length >1 ) {
       // push the newly created question and its options
       $scope.quiz.push($scope.nextQuestion);
+      //$http.post('http://localhost:3000/', {stuff: 'otherstuff'})
+
+      $http.post('/localhost:3000/', $scope.nextQuestion)
+        .success(function(data, status, headers, config)
+          {console.log('post response')
+        })
       // zero out nextQuestion by making a new blank one
       $scope.nextQuestion = {
         options: [{}]
