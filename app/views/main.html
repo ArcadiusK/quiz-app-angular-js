@@ -1,0 +1,69 @@
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Quiz App</a>
+    </div>
+    <div class="collapse navbar-collapse">
+    </div><!--/.nav-collapse -->
+  </div>
+</div>
+
+<div class="container" ng-controller="QuizCtrl">
+  <div>
+    {{ nextQuestion }}
+  </div>
+
+
+  <div class="jumbotron question">
+    <form ng-submit="addQuestionFunction()" name="myForm" novalidate>
+    <h2>Question Submit Form</h2>
+      <input type="text" ng-model="nextQuestion.q" name="jjj" ui-validate=" 'isLongerThanTen($value)' ">
+       {{myForm.jjj.$error.validator  ? "Length needs to be greater than 10." : "" }} 
+
+    <ul id='question-list'>
+        <li ng-repeat="option in nextQuestion.options" ng-form="optionsForm">
+          <input type="radio" name="correct" ng-model="nextQuestion.answer" ng-value="option.value">
+          <input type="text" ng-model="option.value" >
+        </li>
+      </ul> 
+
+      <div>
+      <buton class ="btn btn-primary" ng-click="addOptionClickFunction()">Add Option</button>
+</div>
+       <div>
+        <input type="number" ng-model="nextQuestion.difficulty">
+      </div>
+      <input class="btn btn-primary" type="submit" value="Add Question" >
+    </form>
+  </div>
+
+
+
+
+  <h4>Score: {{ points }}</h4>
+  <ul>
+    <li ng-repeat="question in quiz | orderBy:'difficulty'">
+      <h4>Question {{ $index + 1 }}</h4>
+      <strong>{{ question.q }}</strong>
+      <div ng-repeat="option in question.options">
+        <button class="btn btn-default" ng-click="checkAnswer(question, option.value)">
+          {{ option.value }}
+        </button>
+      </div>
+    </li>
+  </ul>
+
+</div><!-- /.container -->
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>-->
+<!--<script src="../../dist/js/bootstrap.min.js"></script>-->
