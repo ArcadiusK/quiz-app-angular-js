@@ -27,7 +27,7 @@
        {{myForm.jjj.$error.validator  ? "Length needs to be greater than 10." : "" }} 
 
     <ul id='question-list'>
-        <li ng-repeat="option in nextQuestion.options" ng-form="optionsForm">
+        <li ng-repeat="option in nextQuestion.option_s" ng-form="optionsForm">
           <input type="radio" name="correct" ng-model="nextQuestion.answer" ng-value="option.value">
           <input type="text" ng-model="option.value" >
         </li>
@@ -51,7 +51,7 @@
     <li ng-repeat="question in quiz | orderBy:'difficulty'">
       <h4>Question {{ $index + 1 }}</h4>
       <strong>{{ question.q }}</strong>
-      <div ng-repeat="option in question.options">
+      <div ng-repeat="option in question.option_s">
         <button class="btn btn-default" ng-click="checkAnswer(question, option.value)">
           {{ option.value }}
         </button>
